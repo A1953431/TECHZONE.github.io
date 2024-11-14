@@ -1,0 +1,568 @@
+/* Estilo global */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #87CEEB;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.user-options {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido */
+    margin-right: 20px;
+}
+
+.search-bar input {
+    padding: 5px;
+    height: 38px; /* Igualar la altura del botón */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    height: 38px; /* Asegúrate de que el botón tenga la misma altura que el campo de entrada */
+    background-color: #e44d26;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login, .cart {
+    margin-right: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+#cartCount {
+    background-color: #e44d26;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 0.9em;
+    margin-left: 8px;
+}
+
+/* Grilla de productos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.product-name {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-price {
+    font-size: 1.2em;
+    color: #e44d26;
+    font-weight: bold;
+}
+
+.add-to-cart {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #21887f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #21887f;
+}
+
+/* Botón de regresar */
+.back-button {
+    background-color: #007bff; /* Color del botón */
+    color: white; /* Color del texto */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    margin: 20px 0; /* Espaciado arriba y abajo */
+    display: none; /* Oculto por defecto */
+}
+
+.back-button:hover {
+    background-color: #0056b3; /* Color al pasar el cursor */
+}
+
+/* Centrar el contenedor de inicio de sesión y compra como invitado */
+.login-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.login-section,
+.guest-section {
+    width: 45%;
+}
+
+.login-section h2, .guest-section h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Estilos para el formulario de inicio de sesión */
+.login-section input[type="email"],
+.login-section input[type="password"],
+.guest-section input[type="text"],
+.guest-section input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Estilo para el botón de envío */
+button[type="submit"], .guest-section button {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: white;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover, .guest-section button:hover {
+    background-color: #555;
+}
+
+.guest-section input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Estilos para checkbox y etiquetas */
+.terms-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Estilos para los mensajes de error o validación */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Estilo adicional para el texto */
+p {
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+a {
+    color: #e44d26;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos de los modales */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    max-height: 80vh; /* Limitar la altura máxima */
+    overflow-y: auto; /* Agregar desplazamiento vertical */
+    position: relative;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#paymentModal {
+    background-color: #e0f7fa; /* Color de fondo colorido */
+    border: 2px solid #00796b; /* Borde colorido */
+}
+
+#paymentModal h2 {
+    color: #004d40; /* Color del título */
+}
+
+#paymentForm input {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #00796b;
+    width: calc(100% - 22px); /* Ajustar para padding */
+}
+
+button[type="submit"] {
+    background-color: #00796b;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    background-color: #004d40;
+}
+
+/* Estilo para el botón de cerrar el modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos globales */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #87CEEB;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.user-options {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el contenido */
+    margin-right: 20px;
+}
+
+.search-bar input {
+    padding: 5px;
+    height: 38px; /* Igualar la altura del botón */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    height: 38px; /* Asegúrate de que el botón tenga la misma altura que el campo de entrada */
+    background-color: #e44d26;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login, .cart {
+    margin-right: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+#cartCount {
+    background-color: #e44d26;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 0.9em;
+    margin-left: 8px;
+}
+
+/* Estilos para el modal de pago */
+#paymentModal {
+    background-color: #e0f7fa; /* Color de fondo colorido */
+    border: 2px solid #00796b; /* Borde colorido */
+    max-width: 450px; /* Limitar el ancho del modal */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+}
+
+#paymentModal h2 {
+    color: #004d40; /* Color del título */
+    font-size: 1.5em;
+    text-align: center; /* Centrado */
+    margin-bottom: 20px;
+}
+
+/* Estilos para los campos del formulario */
+label {
+    display: block; /* Mostrar como bloque */
+    margin-top: 10px; /* Espaciado superior */
+    color: #333; /* Color de texto */
+}
+
+input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #00796b;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+#paymentForm input[type="number"] {
+    width: 48%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #00796b;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+button[type="submit"] {
+    background-color: #ff4081; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    padding: 10px 15px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px; /* Tamaño de fuente */
+    display: block; /* Mostrar como bloque */
+    margin-top: 20px; /* Espaciado superior */
+    width: 100%; /* Ancho completo */
+}
+button:hover {
+    background-color: #d5006d; /* Color de fondo al pasar el cursor */
+}
+
+button[type="submit"]:hover {
+    background-color: #004d40;
+}
+
+/* Estilos para el botón de cerrar el modal */
+#closePayment {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#closePayment:hover {
+    color: black;
+}
+
+/* Detalles de la tarjeta */
+#cardDetails {
+    display: none; /* Ocultar por defecto */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+/* Estilos para los botones en el header */
+.header-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para contenido adicional */
+.content {
+    text-align: center;
+    padding: 20px;
+}
+
+.center-text {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.social-icons {
+    margin: 20px 0;
+}
+
+.social-icon {
+    width: 40px;
+    margin: 0 10px;
+}
+
+/* Estilos para los mensajes de confirmación o error */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: green;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Animación para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

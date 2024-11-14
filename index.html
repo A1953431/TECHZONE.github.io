@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - TECHZONE</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        .back-button {
+            background-color: #007bff; /* Color del botón */
+            color: white; /* Color del texto */
+            padding: 10px 15px; /* Espaciado interno */
+            border: none; /* Sin borde */
+            border-radius: 4px; /* Bordes redondeados */
+            cursor: pointer; /* Cambiar cursor al pasar */
+            margin: 20px 0; /* Espaciado arriba y abajo */
+            display: none; /* Oculto por defecto */
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Color al pasar el cursor */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo de TECHZONE>
+            <a href="index.html">
+                <div class="company-name">TECHZONE</div>
+            </a>
+        </div>
+        <div class="user-options">
+            <div class="button-container">
+                <button class="header-button" onclick="location.href='contacto.html'">Contacto</button>
+                <button class="header-button" onclick="location.href='conocenos.html'">Conócenos</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar productos..." style="height: 38px;">
+                <button type="button" onclick="performSearch()">Buscar</button>
+            </div>
+            <div class="login" id="loginBtn">Iniciar Sesión</div>
+            <div class="cart" id="cartBtn">
+                🛒 Carrito <span id="cartCount">0</span>
+            </div>
+        </div>
+    </div>
+    <!-- Botón de regresar -->
+    <button onclick="window.history.back();" class="back-button" style="display: none;">Regresar</button>
+
+    <div id="welcomeMessage" class="welcome-message" style="display:none;"></div>
+
+    <div class="product-grid">
+        <div class="product-card" onclick="showProductDetails('iPhone 13', 'smartphone', 'iPhone 13 128GB Azul', '$12,999.99', 'iPhone 13 128GB Azul con 4GB de RAM y cámara de 12MP')">
+            <img src="iphone13.jpg" alt="iPhone 13" class="product-image">
+            <h2 class="product-name">iPhone 13</h2>
+            <p class="product-model">Modelo: IP-2024</p>
+            <p class="product-price" data-price="12999.99">$12,999.99</p>
+            <label for="quantity1">Cantidad:</label>
+            <input type="number" id="quantity1" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+        <!-- Producto 2: MacBook Air M1 -->
+        <div class="product-card" onclick="showProductDetails('MacBook Air M1', 'laptop', 'MacBook Air M1 256GB SSD', '$24,999.99', 'MacBook Air con chip M1, pantalla Retina de 13 pulgadas, 8GB de RAM y 256GB SSD')">
+            <img src="macbook_air.jpg" alt="MacBook Air M1" class="product-image">
+            <h2 class="product-name">MacBook Air M1</h2>
+            <p class="product-model">Modelo: MBA-2023</p>
+            <p class="product-price" data-price="24999.99">$24,999.99</p>
+            <label for="quantity2">Cantidad:</label>
+            <input type="number" id="quantity2" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 3: Samsung Galaxy Tab S7 -->
+        <div class="product-card" onclick="showProductDetails('Samsung Galaxy Tab S7', 'tablet', 'Galaxy Tab S7 128GB', '$10,999.99', 'Samsung Galaxy Tab S7 con pantalla de 11 pulgadas y 128GB de almacenamiento')">
+            <img src="im3.jpg" alt="Samsung Galaxy Tab S7" class="product-image">
+            <h2 class="product-name">Samsung Galaxy Tab S7</h2>
+            <p class="product-model">Modelo: STS-2023</p>
+            <p class="product-price" data-price="10999.99">$10,999.99</p>
+            <label for="quantity3">Cantidad:</label>
+            <input type="number" id="quantity3" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 4: Dell XPS 13 -->
+        <div class="product-card" onclick="showProductDetails('Dell XPS 13', 'laptop', 'XPS 13 512GB SSD', '$29,999.99', 'Dell XPS 13 con procesador i7, 16GB de RAM y 512GB SSD')">
+            <img src="IM4.JPG" alt="Dell XPS 13" class="product-image">
+            <h2 class="product-name">Dell XPS 13</h2>
+            <p class="product-model">Modelo: DXP-2024</p>
+            <p class="product-price" data-price="29999.99">$29,999.99</p>
+            <label for="quantity4">Cantidad:</label>
+            <input type="number" id="quantity4" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 5: iPad Pro 11" -->
+        <div class="product-card" onclick="showProductDetails('iPad Pro 11', 'tablet', 'iPad Pro 11 256GB', '$14,999.99', 'iPad Pro 11 pulgadas con chip M1 y 256GB de almacenamiento')">
+            <img src="im5.jpg" alt="iPad Pro 11" class="product-image">
+            <h2 class="product-name">iPad Pro 11"</h2>
+            <p class="product-model">Modelo: IPP-2024</p>
+            <p class="product-price" data-price="14999.99">$14,999.99</p>
+            <label for="quantity5">Cantidad:</label>
+            <input type="number" id="quantity5" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 6: Microsoft Surface Laptop 4 -->
+        <div class="product-card" onclick="showProductDetails('Microsoft Surface Laptop 4', 'laptop', 'Surface Laptop 4 512GB SSD', '$33,999.99', 'Surface Laptop 4 con procesador i7, 16GB de RAM y 512GB SSD')">
+            <img src="im6.jpg" alt="Microsoft Surface Laptop 4" class="product-image">
+            <h2 class="product-name">Microsoft Surface Laptop 4</h2>
+            <p class="product-model">Modelo: MS-2024</p>
+            <p class="product-price" data-price="33999.99">$33,999.99</p>
+            <label for="quantity6">Cantidad:</label>
+            <input type="number" id="quantity6" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 7: Huawei MatePad Pro -->
+        <div class="product-card" onclick="showProductDetails('Huawei MatePad Pro', 'tablet', 'MatePad Pro 128GB', '$9,999.99', 'Huawei MatePad Pro con pantalla de 10.8 pulgadas y 128GB de almacenamiento')">
+            <img src="im7.jpg" alt="Huawei MatePad Pro" class="product-image">
+            <h2 class="product-name">Huawei MatePad Pro</h2>
+            <p class="product-model">Modelo: HMP-2024</p>
+            <p class="product-price" data-price="9999.99">$9,999.99</p>
+            <label for="quantity7">Cantidad:</label>
+            <input type="number" id="quantity7" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 8: Sony WH-1000XM4 -->
+        <div class="product-card" onclick="showProductDetails('Sony WH-1000XM4', 'headphones', 'WH-1000XM4 Noise Cancelling', '$7,999.99', 'Auriculares Sony WH-1000XM4 con cancelación de ruido')">
+            <img src="im8.jpg" alt="Sony WH-1000XM4" class="product-image">
+            <h2 class="product-name">Sony WH-1000XM4</h2>
+            <p class="product-model">Modelo: SONY-2024</p>
+            <p class="product-price" data-price="7999.99">$7,999.99</p>
+            <label for="quantity8">Cantidad:</label>
+            <input type="number" id="quantity8" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 9: Xbox Series X -->
+        <div class="product-card" onclick="showProductDetails('Xbox Series X', 'gaming', 'Xbox Series X 1TB', '$11,499.99', 'Consola Xbox Series X con 1TB de almacenamiento y soporte 4K')">
+            <img src="im9.jpg" alt="Xbox Series X" class="product-image">
+            <h2 class="product-name">Xbox Series X</h2>
+            <p class="product-model">Modelo: XSX-2024</p>
+            <p class="product-price" data-price="11499.99">$11,499.99</p>
+            <label for="quantity9">Cantidad:</label>
+            <input type="number" id="quantity9" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 10: PlayStation 5 -->
+        <div class="product-card" onclick="showProductDetails('PlayStation 5', 'gaming', 'PS5 825GB', '$13,499.99', 'Consola PlayStation 5 con 825GB de almacenamiento SSD')">
+            <img src="im10.jpg" alt="PlayStation 5" class="product-image">
+            <h2 class="product-name">PlayStation 5</h2>
+            <p class="product-model">Modelo: PS5-2024</p>
+            <p class="product-price" data-price="13499.99">$13,499.99</p>
+            <label for="quantity10">Cantidad:</label>
+            <input type="number" id="quantity10" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 11: Apple Watch Series 7 -->
+        <div class="product-card" onclick="showProductDetails('Apple Watch Series 7', 'smartwatch', 'Apple Watch Series 7 GPS 41mm', '$7,499.99', 'Apple Watch Series 7 con pantalla Retina y 41mm de tamaño')">
+            <img src="im11.jpg" alt="Apple Watch Series 7" class="product-image">
+            <h2 class="product-name">Apple Watch Series 7</h2>
+            <p class="product-model">Modelo: AWS-2024</p>
+            <p class="product-price" data-price="7499.99">$7,499.99</p>
+            <label for="quantity11">Cantidad:</label>
+            <input type="number" id="quantity11" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 12: Lenovo ThinkPad X1 Carbon -->
+        <div class="product-card" onclick="showProductDetails('Lenovo ThinkPad X1 Carbon', 'laptop', 'ThinkPad X1 Carbon Gen 9', '$38,999.99', 'Lenovo ThinkPad X1 Carbon con procesador i7, 16GB de RAM y 512GB SSD')">
+            <img src="im12.jpg" alt="Lenovo ThinkPad X1 Carbon" class="product-image">
+            <h2 class="product-name">Lenovo ThinkPad X1 Carbon</h2>
+            <p class="product-model">Modelo: LTP-2024</p>
+            <p class="product-price" data-price="38999.99">$38,999.99</p>
+            <label for="quantity12">Cantidad:</label>
+            <input type="number" id="quantity12" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 13: Nintendo Switch OLED -->
+        <div class="product-card" onclick="showProductDetails('Nintendo Switch OLED', 'gaming', 'Switch OLED', '$7,999.99', 'Consola Nintendo Switch OLED con pantalla de 7 pulgadas')">
+            <img src="im13.jpg" alt="Nintendo Switch OLED" class="product-image">
+            <h2 class="product-name">Nintendo Switch OLED</h2>
+            <p class="product-model">Modelo: NSO-2024</p>
+            <p class="product-price" data-price="7999.99">$7,999.99</p>
+            <label for="quantity13">Cantidad:</label>
+            <input type="number" id="quantity13" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 14: Bose QuietComfort 35 II -->
+        <div class="product-card" onclick="showProductDetails('Bose QuietComfort 35 II', 'headphones', 'QC 35 II Noise Cancelling', '$6,499.99', 'Auriculares Bose con cancelación de ruido y batería de hasta 20 horas')">
+            <img src="im14.jpg" alt="Bose QuietComfort 35 II" class="product-image">
+            <h2 class="product-name">Bose QuietComfort 35 II</h2>
+            <p class="product-model">Modelo: BQC-2024</p>
+            <p class="product-price" data-price="6499.99">$6,499.99</p>
+            <label for="quantity14">Cantidad:</label>
+            <input type="number" id="quantity14" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 15: Google Pixel 6 -->
+        <div class="product-card" onclick="showProductDetails('Google Pixel 6', 'smartphone', 'Pixel 6 128GB', '$8,999.99', 'Google Pixel 6 con cámara de 50MP y 128GB de almacenamiento')">
+            <img src="im15.jpg" alt="Google Pixel 6" class="product-image">
+            <h2 class="product-name">Google Pixel 6</h2>
+            <p class="product-model">Modelo: GP6-2024</p>
+            <p class="product-price" data-price="8999.99">$8,999.99</p>
+            <label for="quantity15">Cantidad:</label>
+            <input type="number" id="quantity15" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 16: Xiaomi Mi 11 -->
+        <div class="product-card" onclick="showProductDetails('Xiaomi Mi 11', 'smartphone', 'Mi 11 128GB', '$8,499.99', 'Xiaomi Mi 11 con pantalla AMOLED de 6.81 pulgadas y 128GB de almacenamiento')">
+            <img src="im16.jpg"alt="Xiaomi Mi 11" class="product-image">
+            <h2 class="product-name">Xiaomi Mi 11</h2>
+            <p class="product-model">Modelo: XM11-2024</p>
+            <p class="product-price" data-price="8499.99">$8,499.99</p>
+            <label for="quantity16">Cantidad:</label>
+            <input type="number" id="quantity16" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 17: LG UltraGear Monitor 27GL850-B -->
+        <div class="product-card" onclick="showProductDetails('LG UltraGear Monitor 27GL850-B', 'monitor', '27GL850-B 27 144Hz', '$5,499.99', 'Monitor LG UltraGear 27 con 144Hz, IPS y resolución 2560x1440')">
+            <img src="im17.jpg" alt="LG UltraGear Monitor" class="product-image">
+            <h2 class="product-name">LG UltraGear Monitor 27GL850-B</h2>
+            <p class="product-model">Modelo: LG-2024</p>
+            <p class="product-price" data-price="5499.99">$5,499.99</p>
+            <label for="quantity17">Cantidad:</label>
+            <input type="number" id="quantity17" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 18: Samsung 970 EVO Plus 1TB SSD -->
+        <div class="product-card" onclick="showProductDetails('Samsung 970 EVO Plus 1TB SSD', 'storage', '970 EVO Plus 1TB SSD', '$2,499.99', 'Disco SSD Samsung 970 EVO Plus de 1TB NVMe con lectura de hasta 3500MB/s')">
+            <img src="im18.jpg" alt="Samsung 970 EVO Plus SSD" class="product-image">
+            <h2 class="product-name">Samsung 970 EVO Plus 1TB SSD</h2>
+            <p class="product-model">Modelo: SEV1-2024</p>
+            <p class="product-price" data-price="2499.99">$2,499.99</p>
+            <label for="quantity18">Cantidad:</label>
+            <input type="number" id="quantity18" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 19: Razer DeathAdder V2 -->
+        <div class="product-card" onclick="showProductDetails('Razer DeathAdder V2', 'gaming', 'DeathAdder V2 Mouse', '$1,499.99', 'Razer DeathAdder V2 mouse óptico con 20000 DPI y diseño ergonómico')">
+            <img src="im19.jpg" alt="Razer DeathAdder V2" class="product-image">
+            <h2 class="product-name">Razer DeathAdder V2</h2>
+            <p class="product-model">Modelo: RDV2-2024</p>
+            <p class="product-price" data-price="1499.99">$1,499.99</p>
+            <label for="quantity19">Cantidad:</label>
+            <input type="number" id="quantity19" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+
+        <!-- Producto 20: Corsair Vengeance LPX 16GB RAM -->
+        <div class="product-card" onclick="showProductDetails('Corsair Vengeance LPX 16GB RAM', 'accessory', 'Vengeance LPX 16GB', '$1,199.99', 'Corsair Vengeance LPX 16GB DDR4 3200MHz RAM para PC')">
+            <img src="im20.jpg" alt="Corsair Vengeance LPX 16GB RAM" class="product-image">
+            <h2 class="product-name">Corsair Vengeance LPX 16GB RAM</h2>
+            <p class="product-model">Modelo: CVL-2024</p>
+            <p class="product-price" data-price="1199.99">$1,199.99</p>
+            <label for="quantity20">Cantidad:</label>
+            <input type="number" id="quantity20" class="quantity-input" value="1" min="1" max="10">
+            <button class="add-to-cart">Ver Detalles</button>
+        </div>
+    </div>
+
+    <!-- Modal de Detalles del Producto -->
+    <div id="productDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeProductDetails">&times;</span>
+            <h2 id="productName"></h2>
+            <img id="productImage" src="" alt="Imagen del Producto">
+            <p id="productPrice"></p>
+            <label for="quantity">Cantidad:</label>
+            <input type="number" id="quantity" value="1" min="1" max="10">
+            <button id="addToCartBtn">Agregar al carrito</button>
+        </div>
+    </div>
+
+     <!-- Modal de Inicio de Sesión -->
+     <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <!-- Nueva sección para comprar como invitado -->
+            <div class="guest-section">
+                <h2>Comprar como Invitado</h2>
+                <form id="guestForm">
+                    <label for="name">Nombre Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="guestEmail">Correo Electrónico:</label>
+                    <input type="email" id="guestEmail" name="email" required>
+                    <div class="terms-label">
+                        <input type="checkbox" id="terms" name="terms">
+                        <label for="terms">Acepto los términos y condiciones</label>
+                    </div>
+                    <button type="submit">Continuar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Carrito -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeCart">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <div id="cartItems"></div>
+            <h3>Total: $<span id="cartTotal">0.00</span></h3>
+            <button id="checkoutBtn">Proceder al Pago</button>
+        </div>
+    </div>
+
+
+    <!-- Modal de Pago -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closePayment">&times;</span>
+            <h2>Opciones de Pago</h2>
+            <form id="paymentForm">
+                <!-- Datos del Cliente -->
+            <label for="fullName">Nombre Completo:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="shippingEmail">Correo de Envío:</label>
+            <input type="email" id="shippingEmail" name="shippingEmail" required>
+
+            <label for="shippingAddress">Dirección de Envío:</label>
+            <input type="text" id="shippingAddress" name="shippingAddress" required>
+            <label for="paymentMethod">Selecciona tu método de pago:</label>
+            <select id="paymentMethod" name="paymentMethod" required>
+                <option value="debito">Tarjeta de Débito</option>
+                <option value="credito">Tarjeta de Crédito</option>
+                <option value="amex">American Express</option>
+                <option value="sucursal">Pagar en Sucursal</option>
+            </select>
+
+            <div id="cardDetails" style="display:none;">
+                <label for="cardNumber">Número de Tarjeta:</label>
+                <input type="text" id="cardNumber" name="cardNumber" required>
+                <label for="expiryDate">Fecha de Vencimiento (MM/AA):</label>
+                <input type="text" id="expiryDate" name="expiryDate" required placeholder="MM/AA">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required>
+             </div>
+
+                <button type="submit">Pagar</button>
+                <button type="button" id="goBackBtn">Regresar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Factura -->
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeInvoice">&times;</span>
+            <h2>Factura Generada</h2>
+            <p>Tu factura ha sido generada exitosamente.</p>
+            <button class="invoice-button" onclick="downloadInvoice()">Descargar Factura PDF</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Simulación de pago exitoso (esto debe ser ejecutado después de un pago real)
+        document.getElementById("paymentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+            processPayment();
+        });
+
+        function processPayment() {
+            // Datos del cliente (se obtienen de los campos del formulario o de alguna API)
+            const user = {
+                name: document.getElementById("customerName").value, // Obtener nombre del cliente
+                email: document.getElementById("customerEmail").value, // Obtener email del cliente
+                paymentMethod: "Tarjeta de Crédito" // Este dato podría ser dinámico si lo tienes
+            };
+
+            // Productos comprados (esto debe ser dinámico, aquí usamos un ejemplo)
+            const items = getItemsFromCart(); // Obtener productos del carrito de compras
+
+            // Si no hay productos, no generar la factura
+            if (items.length === 0) {
+                alert("No hay productos en el carrito.");
+                return;
+            }
+
+            const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+            // Mostrar la modal para generar la factura
+            document.getElementById("invoiceModal").style.display = "block";
+
+            // Llamar a la función para generar el PDF con la información dinámica
+            downloadInvoice(user, items, total);
+        }
+
+        function getItemsFromCart() {
+            // Este es un ejemplo de cómo podrías obtener los productos del carrito
+            // En tu aplicación real, deberías obtener los productos desde un carrito real
+            return [
+                { name: "Tenis Adidas Samba", price: 1999.99, quantity: 1 },
+                { name: "Tenis Nike Air Force 1", price: 1899.99, quantity: 1 }
+            ];
+        }
+
+        function downloadInvoice(user, items, total) {
+            // Obtener la instancia de jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Crear contenido del PDF usando datos dinámicos
+            doc.text("Factura de Compra - TECHZONE", 10, 10);
+            doc.text(`Cliente: ${user.name}`, 10, 20);
+            doc.text(`Email: ${user.email}`, 10, 30);
+            doc.text(`Método de pago: ${user.paymentMethod}`, 10, 40);
+            doc.text("Detalle de Productos:", 10, 50);
+
+            // Detalle de los productos (esto es dinámico según lo que compró el cliente)
+            let yPosition = 60; // Comienza en la línea 60
+            items.forEach((item) => {
+                doc.text(`${item.name} - $${item.price} x ${item.quantity}`, 10, yPosition);
+                yPosition += 10; // Incrementar la posición en el eje Y para el siguiente producto
+            });
+
+            // Total
+            doc.text(`Total: $${total.toFixed(2)}`, 10, yPosition);
+
+            // Descargar el PDF
+            doc.save("factura.pdf");
+
+            // Cerrar el modal de factura después de la descarga
+            document.getElementById("invoiceModal").style.display = "none";
+        }
+
+        // Cerrar la modal de factura
+        document.getElementById("closeInvoice").addEventListener("click", function() {
+            document.getElementById("invoiceModal").style.display = "none";
+    });
+</script>
+
+</body>
+</html>
